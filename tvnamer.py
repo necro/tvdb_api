@@ -227,11 +227,33 @@ def processFile(t, opts, cfile):
         cfile['filepath'],
         cfile['filename'] + "." + cfile['ext']
     )
-    # Join path to new file name
+
+# Necro EDITS
+## Grab Series name and place in series variable.
+    series = cfile['seriesname']
+
+## Clean the series name so that it doesn't include any illegal characters 
+    cleanseries = cleanName(series)
+
+## Create newdir variable - new directory that needs to be made or checked if it exists. 
+    newdir = os.path.join(
+        cfile['filepath'],
+        cleanseries
+    )
+
+    # check if above dir exists.  If not, make it.
+    
+    if not os.path.isdir( newdir ):
+        os.mkdir( newdir )
+
+## Create newfile variable - this is the new filename and joins the original file path, the series name, then the new file name.
     newfile = os.path.join(
         cfile['filepath'],
+        cleanseries,
         newname
     )
+
+## end Necro Edits
 
     # Show new/old filename
     print "#"*20
